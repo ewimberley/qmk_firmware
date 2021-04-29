@@ -5,6 +5,7 @@ static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seco
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
 
 static const char * sendstring_commands[] = {
+    //GIT
     "git init ",
     "git clone ",
     "git config --global ",
@@ -22,15 +23,48 @@ static const char * sendstring_commands[] = {
     "git commit ",
     "git status ",
     "git log ",
-    "ls -alh",
-    "htop",
-    "free -h",
-    "pwd",
+    //Bash
+    "ls -alh\n",
+    "htop\n",
+    "free -h\n",
+    "pwd\n",
     "less",
     "tmux",
     "watch -n 0",
     "grep -r \"\" ./",
+    "date\n",
+    "cat commands.txt | xargs -t -I CMD --max-procs=12 bash -c CMD",
+    "sudo apt install ",
+    //netplan apply
+    //ufw allow x
+    //Python
+    "try:\n\nexcept Exception as e:\n\tlogging.error(traceback.format_exc())",
+    "df = pd.read_csv('/', sep='\\t', encoding='utf-8')",
+    "df.to_csv('/', sep='\\t', index=False)",
+    "x = np.load('/')",
+    "np.save('/',x)",
+    "import sys\nimport logging\n\nimport numpy as np\nimport pandas as pd\n\ndef main(args):\n\tpass\n\nif __name__ == '__main__':\n\tmain(sys.argv)",
+    "with open('', 'r') as f:\n\tlines = [l.strip() for l in f.readlines()]",
+    "for index, row in df.iterrows():",
+    //PSQL
+    "psql -U user",
+    "\\c db",
+    "\\l\n",
+    "\\dn\n",
+    "\\dt\n",
+    "\\d+ tbl",
+    //insert into
+    //update
+    //select
 };
+
+static const char * keystr[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
+	"ESC",             "F1",   "F2",   "F3",   "F4",   "F5",   "F6",   "F7",   "F8",   "F9",    "F10",  "F11",     "F12",               "PrtSc", "ScrLK", "Pause",
+	"~",               "1",    "2",    "3",    "4",    "5",    "6",    "7",    "8",    "9",     "0",    "-",       "=",       "BSPC",   "INS",   "HOME",  "PgUp",
+	"TAB",             "Q",    "W",    "E",    "R",    "T",    "Y",    "U",    "I",    "O",     "P",    "[",       "]",       "BSLS",   "DEL",   "END",   "PgDn",
+	"CAPS",            "A",    "S",    "D",    "F",    "G",    "H",    "J",    "K",    "L",     ";",    "\"",      "Enter", 
+	"L-SHFT",          "Z",    "X",    "C",    "V",    "B",    "N",    "M",    ",",    ".",     "/",    "R-SHFT",                                "Up",
+	"L-CTRL",          "WIN",  "L-ALT",                "Space",                        "R-ALT", "FN",   "MENU",    "R-CTRL",            "Left",  "Down",  "Right");
 
 //Associate our tap dance key with its functionality
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -60,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FL] = LAYOUT(
         _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, TERM_ON, TERM_OFF,
-        _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_BL), _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_BL), TG(_PL), _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, _______, MD_BOOT, NK_TOGG, _______,  _______,  _______, _______, _______,                            KC_BRIU,
@@ -80,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, G_REMTE, G_RESET, G_REBAS, _______, G_INIT,  _______, G_PULL,  G_PUSH,  _______, _______, _______, _______, _______,
         _______, G_ADD,   G_STAT,  G_DIFF,  G_FETCH, _______, _______, _______, _______, G_LOG,   _______, _______, _______,
         _______, G_CONF,  G_CHECK, G_CLONE, G_COMM,  G_BRANH, _______, G_MERGE, _______, _______, _______, _______,                            _______,
-        _______, _______, _______,                   _______,                            _______, TG(_GL), _______, _______,          _______, _______, _______
+        _______, _______, _______,                   _______,                            P_LAYER, TG(_GL), _______, _______,          _______, _______, _______
     ),
     // This layout doesn't have custom keycodes for now, just custom LED config
     [_VL] = LAYOUT(
@@ -104,10 +138,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______,   KC_NO, B_WATCH, _______, _______,  B_TMUX, _______, _______, _______, _______,   B_PWD, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______,  B_FREE,  B_GREP,  B_HTOP, _______, _______,    B_LS, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
-        _______, _______, _______,                   _______,                            _______, TG(_BL), _______, _______,          _______, _______, _______
+        _______, _______, _______,  B_DATE,  B_FREE,  B_GREP,  B_HTOP, _______, _______,    B_LS, _______, _______, _______,
+        _______, _______, B_XARGS, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                            P_LAYER, TG(_BL), _______, _______,          _______, _______, _______
     ),
+    [_PL] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,   P_TRY, _______, _______, P_PD_IR,  P_OPEN, P_PD_RD, _______, _______, _______, _______, _______, _______,
+        _______, _______, P_NP_SV,  P_DRVR, _______, _______, _______, _______, _______, P_NP_LD, _______, _______, _______,
+        _______, _______, _______, P_PD_TC, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                            P_LAYER, TG(_PL), _______, _______,          _______, _______, _______
+    ),
+
 
     /*
     [X] = LAYOUT(
@@ -144,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [_FL] = {
         _______, CORAL,   CORAL,   _______, _______, CORAL,   CORAL,   _______, _______, CORAL,   _______, YELLOW,  YELLOW,           TEAL,    GOLD,   GOLD,
-        _______, _______, PINK,    PINK,    PINK,    PINK,    _______, _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,   TEAL,
+        _______, _______, PINK,    PINK,    PINK,    PINK,    PINK,    _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,   TEAL,
         ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, AZURE,   AZURE,   _______, _______, _______, _______, _______, TEAL,    TEAL,   TEAL,
         _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, _______, _______, _______, _______,
         _______, ORANGE,  _______, CORAL,   _______, AZURE,   AZURE,   _______, _______, _______, _______, AZURE,                              SPRING,
@@ -164,7 +207,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______, _______, BLUE,    AZURE,   AZURE,   _______, CYAN,    _______, TURQ,    PURPLE,  _______, _______, _______, _______, _______,
         _______, CORAL,   GREEN,   GREEN,   TURQ,    _______, _______, _______, _______, GREEN,   _______, _______, _______,
         _______, CYAN,    CHART,   TURQ,    ORANGE,  CHART,   _______, CHART,   _______, _______, _______, _______,                            _______,
-        _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,          _______, _______, _______
+        _______, _______, _______,                   _______,                            PINK,    PINK,    _______, _______,          _______, _______, _______
     },
     [_VL] = {
         PURPLE,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
@@ -185,11 +228,20 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [_BL] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, RED,     _______, _______, RED,     _______, _______, _______, _______, RED,     _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, RED,     RED,     RED,     _______, _______, RED,     _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
-        _______, _______, _______,                   _______,                   _______, PINK,    _______, _______,                   _______, _______, _______ 
+        _______, _______, RED,     _______, _______, RED,     _______, _______, _______, _______, ORANGE,  _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, ORANGE,  ORANGE,  RED,     ORANGE,  _______, _______, ORANGE,  _______, _______, _______,
+        _______, _______, RED,     _______, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                   PINK,    PINK,    _______, _______,                   _______, _______, _______ 
     },
+    [_PL] = {
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, RED,     _______, _______, GREEN,   RED,     GREEN,   _______, _______, _______, _______, _______, _______,
+        _______, _______, BLUE,    RED,     _______, _______, _______, _______, _______, BLUE,    _______, _______, _______,
+        _______, _______, _______, GREEN,   _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                   PINK,    PINK,    _______, _______,                   _______, _______, _______ 
+    },
+
 
 };
 
@@ -239,6 +291,22 @@ void matrix_scan_user(void) {
         }
     }
 };
+
+void print_layer_cheat_sheet(void) {
+	uint8_t layer = biton32(layer_state);
+	for(int r = 0; r < MATRIX_ROWS; r++){
+		for(int c = 0; c < MATRIX_COLS; c++){
+			uint16_t keycode = keymaps[layer][r][c];
+			if(keycode >= G_INIT && keycode <= P_PD_IR){
+				send_string_with_delay("******", 2);
+				send_string_with_delay(keystr[r][c], 2);
+				send_string_with_delay("******\n", 2);
+				send_string_with_delay(sendstring_commands[keycode - G_INIT], 2);
+				send_string_with_delay("\n\n", 2);
+			}
+		}
+	}
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -370,7 +438,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 rgb_time_out_fast_mode_enabled = !rgb_time_out_fast_mode_enabled;
                 return false;
-            case G_INIT ... B_GREP:
+	    case P_LAYER:
+		print_layer_cheat_sheet();
+            case G_INIT ... P_PD_IR:
                 send_string_with_delay(sendstring_commands[keycode - G_INIT], 5);
                 return false;
         }

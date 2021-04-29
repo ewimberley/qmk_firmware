@@ -52,7 +52,8 @@ enum layout_names {
     _GL,         // GIT Layout: GIT shortcuts and macros
     _VL,         // VIM Layout: VIM shorcuts and macros
     _YL,         // Yakuake Layout: Yakuake drop-down terminal shortcuts and macros
-    _BL,	 // BASH Layout: BASH macros
+    _BL,	 // BASH Layout
+    _PL,	 // Python Layout
     _EL,         // KDE Layout: Shortcuts for KDE desktop using default KDE shortcuts settings
 };
 
@@ -76,11 +77,13 @@ enum ctrl_keycodes {
     ROUT_VD,               // Timeout Value Decrease. Decrease idle time out before LED disabled
     ROUT_FM,               // RGB timeout fast mode toggle
     COPY_ALL,              // Copy all text using ctrl(a+c)
+    P_LAYER,
     TERMINAL,              // CTRL+ALT+T
 };
 
 enum string_macro_keycodes {
     // The start of this enum should always be equal to end of ctrl_keycodes + 1
+    // GIT
     G_INIT = TERMINAL + 1, // git init
     G_CLONE,               // git clone
     G_CONF,                // git config --global
@@ -98,6 +101,7 @@ enum string_macro_keycodes {
     G_COMM,                // git commit
     G_STAT,                // git status
     G_LOG,                 // git log
+    //Bash
     B_LS,		   // ls -alh
     B_HTOP,		   // htop
     B_FREE,		   // free -h
@@ -106,4 +110,17 @@ enum string_macro_keycodes {
     B_TMUX,		   // tmux
     B_WATCH,		   // watch -n 0
     B_GREP,	           // grep -r "" ./
+    B_DATE,		   // date
+    B_XARGS,		   // cat commands.txt | xargs -t -I CMD --max-procs=12 bash -c CMD
+    B_AINST,
+    //Python
+    P_TRY,
+    P_PD_RD,
+    P_PD_TC,
+    P_NP_LD,
+    P_NP_SV,
+    P_DRVR,
+    P_OPEN,
+    P_PD_IR,
+    //PSQL
 };
