@@ -5,6 +5,7 @@ static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seco
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
 
 static const char * sendstring_commands[] = {
+    ///////////////////////////////
     //GIT
     "git init ",
     "git clone ",
@@ -23,6 +24,7 @@ static const char * sendstring_commands[] = {
     "git commit ",
     "git status ",
     "git log ",
+    ///////////////////////////////
     //Bash
     "ls -alh\n",
     "htop\n",
@@ -35,8 +37,8 @@ static const char * sendstring_commands[] = {
     "date\n",
     "cat commands.txt | xargs -t -I CMD --max-procs=12 bash -c CMD",
     "sudo apt install ",
-    //netplan apply
-    //ufw allow x
+    //kill -9
+    ///////////////////////////////
     //Python
     "try:\n\nexcept Exception as e:\n\tlogging.error(traceback.format_exc())",
     "df = pd.read_csv('/', sep='\\t', encoding='utf-8')",
@@ -46,6 +48,7 @@ static const char * sendstring_commands[] = {
     "import sys\nimport logging\n\nimport numpy as np\nimport pandas as pd\n\ndef main(args):\n\tpass\n\nif __name__ == '__main__':\n\tmain(sys.argv)",
     "with open('', 'r') as f:\n\tlines = [l.strip() for l in f.readlines()]",
     "for index, row in df.iterrows():",
+    ///////////////////////////////
     //PSQL
     "psql -U user",
     "\\c db",
@@ -94,11 +97,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FL] = LAYOUT(
         _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, TERM_ON, TERM_OFF,
-        _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_BL), TG(_PL), _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, TG(_NL), TG(_ML), TG(_GL),  TG(_VL), TG(_BL), TG(_PL), _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, _______, MD_BOOT, NK_TOGG, _______,  _______,  _______, _______, _______,                            KC_BRIU,
         _______, _______, _______,                    _______,                              _______, TG(_FL), _______, _______,          _______, KC_BRID, _______
+    ),
+    [_NL] = LAYOUT(
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_7,  KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,   KC_BSPC, KC_NO,   KC_HOME, KC_PGUP,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_4,  KC_5,    KC_6,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_END,  KC_PGDN,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_1,  KC_2,    KC_3,   KC_NO,   KC_NO,   KC_NO,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0,  KC_NO,   KC_DOT, KC_SLSH, KC_NO,                               KC_UP,
+        KC_NO,  KC_NO, KC_NO,               KC_NO,                        KC_NO,  TG(_NL), KC_NO,   KC_NO,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_ML] = LAYOUT(
         _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
@@ -193,6 +204,14 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, ORANGE,  _______, CORAL,   _______, AZURE,   AZURE,   _______, _______, _______, _______, AZURE,                              SPRING,
         _______, _______, _______,                   _______,                            _______, PINK,    _______, AZURE,            _______, SPRING, _______
     },
+    [_NL] = {
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  RED,     RED,     RED,     _______, RED,     RED,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, _______, _______, RED,     RED,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  _______, RED,     RED,     _______,                            GOLD,
+        _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,          GOLD,    GOLD,    GOLD
+    },
     [_ML] = {
         _______, GOLD,    GOLD,    GOLD,   _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, MAGENT,  MAGENT,  MAGENT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -241,8 +260,14 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______, GREEN,   _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
         _______, _______, _______,                   _______,                   PINK,    PINK,    _______, _______,                   _______, _______, _______ 
     },
-
-
+  /*[_NL] = {
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                            GOLD,
+        _______, _______, _______,                   _______,                                     _______, _______, _______, _______, GOLD,    GOLD,    GOLD
+    },*/
 };
 
 #undef _______

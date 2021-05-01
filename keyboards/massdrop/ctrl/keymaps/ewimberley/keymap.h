@@ -48,6 +48,7 @@ led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it c
 enum layout_names {
     _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
     _FL,         // Function Layout: The function key activated layout with default functions and some added ones
+    _NL,	 // Numpad Layout
     _ML,         // Mouse Layout: Mouse Keys and mouse movement
     _GL,         // GIT Layout: GIT shortcuts and macros
     _VL,         // VIM Layout: VIM shorcuts and macros

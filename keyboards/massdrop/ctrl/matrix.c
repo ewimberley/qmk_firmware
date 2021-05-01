@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 #ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 1
+#    define MATRIX_IO_DELAY 20
 #endif
 
 matrix_row_t mlatest[MATRIX_ROWS];
