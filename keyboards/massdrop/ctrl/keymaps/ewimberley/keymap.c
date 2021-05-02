@@ -104,12 +104,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                    _______,                              _______, TG(_FL), _______, _______,          _______, KC_BRID, _______
     ),
     [_NL] = LAYOUT(
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,   KC_NO,             KC_NO,   KC_NO,   KC_NO,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_7,  KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,   KC_BSPC, KC_NO,   KC_HOME, KC_PGUP,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_4,  KC_5,    KC_6,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_END,  KC_PGDN,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_1,  KC_2,    KC_3,   KC_NO,   KC_NO,   KC_NO,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0,  KC_NO,   KC_DOT, KC_SLSH, KC_NO,                               KC_UP,
-        KC_NO,  KC_NO, KC_NO,               KC_NO,                        KC_NO,  TG(_NL), KC_NO,   KC_NO,             KC_LEFT, KC_DOWN, KC_RGHT
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,      KC_NO,             KC_7,    KC_8,    KC_9,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_7,  KC_8,    KC_9,   KC_0,    KC_MINS,    KC_EQL,   KC_BSPC, KC_4,    KC_5,    KC_6,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_4,  KC_5,    KC_6,   KC_NO,   KC_NO,      KC_NO,    KC_0,    KC_1,    KC_2,    KC_3,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_1,  KC_2,    KC_3,   KC_NO,   KC_NO,      KC_ENT,
+        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0,  KC_NO,   KC_DOT, KC_SLSH, KC_RSFT,                                KC_UP,
+        KC_NO,  KC_NO, KC_NO,               KC_NO,                        KC_NO,  TG(_NL), KC_NO,      KC_NO,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_ML] = LAYOUT(
         _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
@@ -205,11 +205,11 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______,                   _______,                            _______, PINK,    _______, AZURE,            _______, SPRING, _______
     },
     [_NL] = {
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  RED,     RED,     RED,     _______, RED,     RED,
-        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, _______, _______, RED,     RED,
-        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, ORANGE,  _______, RED,     RED,     _______,                            GOLD,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          ORANGE, ORANGE, ORANGE,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  RED,     RED,     RED,     ORANGE, ORANGE, ORANGE,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, ORANGE,  ORANGE, ORANGE, ORANGE,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, RED,
+        _______, _______, _______, _______, _______, _______, _______, ORANGE,  _______, RED,     RED,     RED,                                GOLD,
         _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,          GOLD,    GOLD,    GOLD
     },
     [_ML] = {
