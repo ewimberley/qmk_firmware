@@ -50,15 +50,17 @@ static const char * sendstring_commands[] = {
     "for index, row in df.iterrows():",
     ///////////////////////////////
     //PSQL
-    "psql -U user",
-    "\\c db",
-    "\\l\n",
-    "\\dn\n",
-    "\\dt\n",
-    "\\d+ tbl",
+    "psql -U postgres",
+    "\\c db", //connect
+    "\\l\n", //list dbs
+    "\\dn\n", //list schemas
+    "\\dt\n", //list tables
+    "\\d+ tbl", //table details
+    "DROP TABLE name CASCADE;",
+    "DELETE FROM table WHERE 1=1;",
+    "SELECT * FROM table WHERE 1=1 LIMIT 20 OFFSET 0;"
     //insert into
     //update
-    //select
 };
 
 static const char * keystr[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
@@ -97,19 +99,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FL] = LAYOUT(
         _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, TERM_ON, TERM_OFF,
-        _______, TG(_NL), TG(_ML), TG(_GL),  TG(_VL), TG(_BL), TG(_PL), _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
+        _______, TG(_NL), TG(_ML), TG(_GL),  TG(_VL), TG(_BL), TG(_PL), TG(_SL),  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
         _______, RGB_TOG, _______, COPY_ALL, _______, MD_BOOT, NK_TOGG, _______,  _______,  _______, _______, _______,                            KC_BRIU,
         _______, _______, _______,                    _______,                              _______, TG(_FL), _______, _______,          _______, KC_BRID, _______
     ),
     [_NL] = LAYOUT(
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,      KC_NO,             KC_7,    KC_8,    KC_9,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_7,  KC_8,    KC_9,   KC_0,    KC_MINS,    KC_EQL,   KC_BSPC, KC_4,    KC_5,    KC_6,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_4,  KC_5,    KC_6,   KC_NO,   KC_NO,      KC_NO,    KC_0,    KC_1,    KC_2,    KC_3,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_1,  KC_2,    KC_3,   KC_NO,   KC_NO,      KC_ENT,
-        KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0,  KC_NO,   KC_DOT, KC_SLSH, KC_RSFT,                                KC_UP,
-        KC_NO,  KC_NO, KC_NO,               KC_NO,                        KC_NO,  TG(_NL), KC_NO,      KC_NO,             KC_LEFT, KC_DOWN, KC_RGHT
+        KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,      KC_NO,             KC_7,    KC_8,    KC_9,
+        KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_7,  KC_8,    KC_9,   KC_0,    KC_MINS,    KC_EQL,   KC_BSPC, KC_4,    KC_5,    KC_6,
+        KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_4,  KC_5,    KC_6,   KC_NO,   KC_NO,      KC_NO,    KC_0,    KC_1,    KC_2,    KC_3,
+        KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_1,  KC_2,    KC_3,   KC_NO,   KC_NO,      KC_ENT,
+        KC_LSFT,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0,  KC_NO,   KC_DOT, KC_SLSH, KC_RSFT,                                KC_UP,
+        KC_NO,    KC_NO, KC_NO,               KC_NO,                        KC_NO,  TG(_NL), KC_NO,      KC_NO,             KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_ML] = LAYOUT(
         _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
@@ -161,6 +163,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, P_PD_TC, _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
         _______, _______, _______,                   _______,                            P_LAYER, TG(_PL), _______, _______,          _______, _______, _______
     ),
+    [_SL] = LAYOUT(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, S_LSTB,  _______, _______, _______, _______, S_CNSL,  _______, _______, _______, _______, _______, _______,
+        _______, S_DEL,   S_SEL,   S_DROP,  _______, _______, _______, _______, _______, S_LSDB,  _______, _______, _______,
+        _______, _______, _______, S_CNCT,  _______, _______, S_LSSC,  _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                            P_LAYER, TG(_SL), _______, _______,          _______, _______, _______
+    ),
 
 
     /*
@@ -198,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [_FL] = {
         _______, CORAL,   CORAL,   _______, _______, CORAL,   CORAL,   _______, _______, CORAL,   _______, YELLOW,  YELLOW,           TEAL,    GOLD,   GOLD,
-        _______, PINK,    PINK,    PINK,    PINK,    PINK,    PINK,    _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,   TEAL,
+        _______, PINK,    PINK,    PINK,    PINK,    PINK,    PINK,    PINK,    _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,   TEAL,
         ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, AZURE,   AZURE,   _______, _______, _______, _______, _______, TEAL,    TEAL,   TEAL,
         _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, _______, _______, _______, _______,
         _______, ORANGE,  _______, CORAL,   _______, AZURE,   AZURE,   _______, _______, _______, _______, AZURE,                              SPRING,
@@ -209,7 +219,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  ORANGE,  RED,     RED,     RED,     ORANGE, ORANGE, ORANGE,
         _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, _______, ORANGE,  ORANGE, ORANGE, ORANGE,
         _______, _______, _______, _______, _______, _______, _______, ORANGE,  ORANGE,  ORANGE,  _______, _______, RED,
-        _______, _______, _______, _______, _______, _______, _______, ORANGE,  _______, RED,     RED,     RED,                                GOLD,
+        RED,     _______, _______, _______, _______, _______, _______, ORANGE,  _______, RED,     RED,     RED,                                GOLD,
         _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,          GOLD,    GOLD,    GOLD
     },
     [_ML] = {
@@ -260,6 +270,15 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
         _______, _______, _______, GREEN,   _______, _______, _______, _______, _______, _______, _______, _______,                            _______,
         _______, _______, _______,                   _______,                   PINK,    PINK,    _______, _______,                   _______, _______, _______ 
     },
+    [_SL] = {
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, BLUE,    _______, _______, _______, _______, BLUE,    _______, _______, _______, _______, _______, _______,
+        _______, RED,     RED,     RED,     _______, _______, _______, _______, _______, BLUE,    _______, _______, _______,
+        _______, _______, _______, BLUE,    _______, _______, BLUE,    _______, _______, _______, _______, _______,                            _______,
+        _______, _______, _______,                   _______,                   PINK,    PINK,    _______, _______,                   _______, _______, _______ 
+    },
+
   /*[_NL] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -322,7 +341,7 @@ void print_layer_cheat_sheet(void) {
 	for(int r = 0; r < MATRIX_ROWS; r++){
 		for(int c = 0; c < MATRIX_COLS; c++){
 			uint16_t keycode = keymaps[layer][r][c];
-			if(keycode >= G_INIT && keycode <= P_PD_IR){
+			if(keycode >= G_INIT && keycode <= S_SEL){
 				send_string_with_delay("******", 2);
 				send_string_with_delay(keystr[r][c], 2);
 				send_string_with_delay("******\n", 2);
@@ -465,7 +484,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
 	    case P_LAYER:
 		print_layer_cheat_sheet();
-            case G_INIT ... P_PD_IR:
+            case G_INIT ... S_SEL:
                 send_string_with_delay(sendstring_commands[keycode - G_INIT], 5);
                 return false;
         }

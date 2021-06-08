@@ -55,6 +55,7 @@ enum layout_names {
     _YL,         // Yakuake Layout: Yakuake drop-down terminal shortcuts and macros
     _BL,	 // BASH Layout
     _PL,	 // Python Layout
+    _SL,	 // SQL Layout
     _EL,         // KDE Layout: Shortcuts for KDE desktop using default KDE shortcuts settings
 };
 
@@ -124,4 +125,13 @@ enum string_macro_keycodes {
     P_OPEN,
     P_PD_IR,
     //PSQL
+    S_CNSL,
+    S_CNCT,
+    S_LSDB,
+    S_LSSC,
+    S_LSTB,
+    S_TBDT,
+    S_DROP,
+    S_DEL,
+    S_SEL
 };
